@@ -4,14 +4,6 @@ let screenPrice = +prompt('Сколько будет стоить данная �
 let rollback = 74;
 let fullPrice = 2500;
 let adaptive = confirm('Нужен ли адаптив на сайте?');
-console.log(typeof title);
-console.log(typeof fullPrice);
-console.log(typeof adaptive);
-console.log(screens.length);
-console.log('Стоимость верстки экранов ' + screenPrice + ' рублей');
-console.log('Стоимость разработки сайта ' + fullPrice + ' долларов');
-console.log(screens.toLowerCase().split(','));
-console.log(fullPrice * (rollback / 100));
 //Lesson03
 let service1 = prompt('Какой дополнительный тип услуги нужен?');
 let servicePrice1 = +prompt('Сколько это будет стоить?');
