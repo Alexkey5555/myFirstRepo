@@ -27,7 +27,7 @@ switch (true) {
         console.log('Что то пошло не так');
         break;
 
-};
+}
 
 
 
