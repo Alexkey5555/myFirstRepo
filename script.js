@@ -4,14 +4,13 @@ let screenPrice = +prompt('Сколько будет стоить данная �
 let rollback = 74;
 let fullPrice = 2500;
 let adaptive = confirm('Нужен ли адаптив на сайте?');
-//Lesson03
 let service1 = prompt('Какой дополнительный тип услуги нужен?');
 let servicePrice1 = +prompt('Сколько это будет стоить?');
 let service2 = prompt('Какой дополнительный тип услуги нужен?');
 let servicePrice2 = +prompt('Сколько это будет стоить?');
-fullPrice = screenPrice + servicePrice1 + servicePrice2;
 let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100));
-console.log(Math.ceil(servicePercentPrice));
+
+fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
 switch (true) {
     case fullPrice > 30000:
@@ -26,8 +25,14 @@ switch (true) {
     case fullPrice < 0:
         console.log('Что то пошло не так');
         break;
-
 }
+
+console.log(typeof title);
+console.log(typeof fullPrice);
+console.log(typeof adaptive);
+console.log(screens.length);
+console.log(screens.toLowerCase().split(','));
+console.log(Math.ceil(servicePercentPrice));
 
 
 
