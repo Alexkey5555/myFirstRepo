@@ -17,7 +17,7 @@ const asking = function () {
     title = prompt('Как называеться ваш проект?');
     screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
     do {
-        screenPrice = prompt('Сколько будет стоить данная работа?');
+        screenPrice = parseFloat(prompt('Сколько будет стоить данная работа?'));
     }
     while (!isNumber(screenPrice))
     screenPrice = +screenPrice;
@@ -85,4 +85,4 @@ showTypeOff(screenPrice);
 showTypeOff(adaptive);
 console.log(screens.split(','));
 console.log(getRollbackMessage(fullPrice));
-console.log(getServicePercentPrices());
+console.log(servicePercentPrice);
