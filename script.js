@@ -10,7 +10,6 @@ let service1;
 let service2;
 
 const isNumber = function (num) {
-    num.trim()
     return !isNaN(parseFloat(num)) && isFinite(num);
 };
 
