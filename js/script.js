@@ -6,12 +6,12 @@ let otherItems1 = document.querySelectorAll('.other-items.percent');
 let otherItems2 = document.querySelectorAll('.other-items.number');
 let inputRange = document.querySelector('.rollback > div > [type=range]');
 let span = document.querySelector('.rollback > div > .range-value');
-let totalInput = function () {
-    let input = document.getElementsByClassName('total-input');
-    for (let i = 0; i < input.length; i++) {
-        console.log(input[i]);
-    }
-};
+let totalInput = document.getElementsByClassName('total-input');
+let total = totalInput[0];
+let totalCount = totalInput[1];
+let totalCountOther = totalInput[2];
+let totalFullCount = totalInput[3];
+let totalCountRollback = totalInput[4];
 let screen = document.querySelectorAll('.screen ');
 
 console.log(title);
@@ -21,8 +21,12 @@ console.log(otherItems1);
 console.log(otherItems2);
 console.log(inputRange);
 console.log(span);
-totalInput();
 console.log(screen);
+console.log(total);
+console.log(totalCount);
+console.log(totalCountOther);
+console.log(totalFullCount);
+console.log(totalCountRollback);
 
 let congif;
 const appData = {
