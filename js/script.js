@@ -22,7 +22,7 @@ const appData = {
     screens: [],
     screenPrice: 0,
     adaptive: true,
-    rollback: 74,
+    rollback: 0,
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
@@ -67,7 +67,7 @@ const appData = {
     },
     addScreens: function () {
         screens = document.querySelectorAll('.screen ');
-        let count = 0;
+
         screens.forEach(function (screen, index) {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
@@ -75,11 +75,12 @@ const appData = {
             appData.screens.push({
                 id: index,
                 name: selecName,
-                price: +select.value * +input.value
+                price: +select.value * +input.value,
+                count: +input.value
             });
-            count++;
+
         });
-        totalCount.value = count;
+
     },
     addScreenBlock: function () {
         const cloneScreen = screens[0].cloneNode(true);
@@ -104,6 +105,7 @@ const appData = {
         })
     },
     addPrice: function () {
+        let counSum = 0;
         for (let screen of appData.screens) {
             appData.screenPrice += +screen.price
         }
@@ -116,11 +118,16 @@ const appData = {
         appData.fullPrice = appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent;
         appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
         totalCountRollback.value = appData.servicePercentPrice;
+        for (let key in appData.screens) {
+            counSum += +appData.screens[key].count;
+        }
+        totalCount.value = counSum;
     },
     start: function () {
         appData.addScreens();
         appData.addServices();
         appData.addPrice();
+
         // appData.getServicePercentPrices();
         // appData.logger()
         appData.showResult();
