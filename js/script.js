@@ -118,6 +118,13 @@ const appData = {
         appData.fullPrice = appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent;
         appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
         totalCountRollback.value = appData.servicePercentPrice;
+        inputRange.addEventListener('input', function (event) {
+            appData.rollback = event.target.value;
+            appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
+            totalCountRollback.value = appData.servicePercentPrice;
+        })
+
+
         for (let key in appData.screens) {
             counSum += +appData.screens[key].count;
         }
