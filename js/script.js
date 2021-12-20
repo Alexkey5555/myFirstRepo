@@ -17,6 +17,11 @@ let totalCountRollback = totalInput[4];
 
 let screens = document.querySelectorAll('.screen ');
 
+let cms = document.querySelector('#cms-open');
+let cmsVariants = document.querySelector('.hidden-cms-variants');
+let cmsSelect = document.querySelectorAll('#cms-select')[0];
+let mainControl = cmsVariants.querySelector('.main-controls__input')
+
 let congif;
 const appData = {
     title: '',
@@ -27,6 +32,9 @@ const appData = {
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
+    cmsPrice: false,
+    cmsPricePercent: false,
+    cmsPriceOther: 0,
     servicePercentPrice: 0,
     servicesPercent: {},
     servicesNumber: {},
@@ -39,6 +47,9 @@ const appData = {
         this.servicePricesPercent = 0;
         this.servicePricesNumber = 0;
         this.fullPrice = 0;
+        this.cmsPrice = false;
+        this.cmsPricePercent = false;
+        this.cmsPriceOther = 0;
         this.servicePercentPrice = 0;
         this.servicesPercent = {};
         this.servicesNumber = {};
@@ -58,6 +69,12 @@ const appData = {
         btnSum.disabled = false;
         btnResult.style.display = 'block';
         btnClear.style.display = 'none';
+        mainControl.style.display = 'none'
+        cmsVariants.style.display = 'none';
+        if (cms.checked) {
+            cms.checked = false;
+        }
+        cmsSelect.value = '';
         otherItems.forEach(item => {
             const check = item.querySelector('input[type=checkbox]');
             if (check.checked) {
@@ -88,15 +105,38 @@ const appData = {
             alert('заполните поля');
         }
     },
+    cmsOpen: function () {
+        cmsVariants.style.display = 'flex';
+    },
+    cmsOther: function (event) {
+        this.cmsPriceOther = +event.target.value;
+    },
+    mainControl: function (item) {
+        if (item.target.value === 'other') {
+            mainControl.style.display = 'flex'
+            this.cmsPricePercent = true
+            let inputControl = mainControl.querySelector('input')
+            inputControl.addEventListener('input', this.cmsOther.bind(appData));
+        }
+        else if (item.target.value === '50') {
+            this.cmsPrice = true
+        }
+        else {
+            mainControl.style.display = 'none'
+        }
+    },
     init: function () {
         this.addTitle();
         inputRange.addEventListener('input', event => {
             span.textContent = event.target.value + '%';
             this.rollback = event.target.value;
         })
+        cms.addEventListener('click', this.cmsOpen)
+        cmsSelect.addEventListener('change', this.mainControl.bind(appData))
         btnResult.addEventListener('click', this.checkValues.bind(appData));
         btnSum.addEventListener('click', this.addScreenBlock);
         btnClear.addEventListener('click', this.reset.bind(appData));
+
     },
     addTitle: function () {
         document.title = title.textContent;
@@ -163,6 +203,12 @@ const appData = {
             this.servicePricesPercent += this.screenPrice * (this.servicesPercent[key] / 100);
         }
         this.fullPrice = this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
+        if (this.cmsPrice) {
+            this.fullPrice = this.fullPrice + (this.fullPrice / 2);
+        }
+        else if (this.cmsPricePercent) {
+            this.fullPrice = this.fullPrice + (this.fullPrice * (this.cmsPriceOther / 100))
+        }
         this.servicePercentPrice = this.fullPrice - (this.fullPrice * (this.rollback / 100));
         totalCountRollback.value = this.servicePercentPrice;
         inputRange.addEventListener('input', event => {
